@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Up Two-Factor Authentication</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Set up 2FA</h1>
+    <p class="subtitle">Scan this QR code with Google Authenticator, Authy, or a similar app.</p>
+
+    <% if (errors.length) { %>
+      <div class="alert alert-error">
+        <% errors.forEach(function(e) { %>
+          <div><%= e %></div>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <div class="qr-box">
+      <img src="<%= qrDataUrl %>" alt="2FA QR code" width="200" height="200">
+    </div>
+
+    <p class="subtitle" style="margin-bottom:6px;">Or enter this code manually:</p>
+    <code class="secret-code"><%= secret %></code>
+
+    <form method="POST" action="/2fa/setup" autocomplete="off">
+      <label for="token">Enter the 6-digit code to confirm</label>
+      <input type="text" id="token" name="token" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autofocus>
+
+      <button type="submit">Enable 2FA</button>
+    </form>
+
+    <div class="secondary-link">
+      <a href="/dashboard">Cancel</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>You're logged in</h1>
+    <p class="subtitle">Welcome, <%= email %></p>
+
+    <div class="dashboard-row">
+      <span>Two-factor authentication</span>
+      <% if (totpEnabled) { %>
+        <span class="badge badge-on">Enabled</span>
+      <% } else { %>
+        <span class="badge badge-off">Disabled</span>
+      <% } %>
+    </div>
+
+    <% if (totpEnabled) { %>
+      <form method="POST" action="/2fa/disable">
+        <button type="submit" class="btn-danger">Disable 2FA</button>
+      </form>
+    <% } else { %>
+      <a href="/2fa/setup" style="text-decoration:none;">
+        <button type="button">Enable 2FA</button>
+      </a>
+    <% } %>
+
+    <form method="POST" action="/logout">
+      <button type="submit" class="btn-secondary">Log out</button>
+    </form>
+  </div>
+</body>
+</html>

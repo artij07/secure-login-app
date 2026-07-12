@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome back</h1>
+    <p class="subtitle">Log in to your account.</p>
+
+    <% if (typeof registered !== 'undefined' && registered) { %>
+      <div class="alert alert-success">Account created! You can now log in.</div>
+    <% } %>
+
+    <% if (errors.length) { %>
+      <div class="alert alert-error">
+        <% errors.forEach(function(e) { %>
+          <div><%= e %></div>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/login" autocomplete="off">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autofocus>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Log in</button>
+    </form>
+
+    <div class="secondary-link">
+      Don't have an account? <a href="/register">Sign up</a>
+    </div>
+  </div>
+</body>
+</html>
